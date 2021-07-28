@@ -35,9 +35,9 @@
         <% posts.reverse().forEach(function(post) { %>
           <div class="container">
             <div class="jumbotron">
-                <h1><%= post.postTitle %></h1>
-                <p id="pAuthor">- Written by <%= post.postAuthor %></p>
-                <p><%= post.postContent.substring(0, 450) + "..." %><a target="_blank" href="/posts/<%= post.postTitle %>">Read More</a></p>
+              <h1><%= post.postTitle %></h1>
+              <p id="pAuthor">- Written by <%= post.postAuthor %></p>
+              <p><%= post.postContent.substring(0, 450) + "..." %><a target="_blank" href="/posts/<%= post.postTitle %>">Read More</a></p>
             </div>
           </div>
           <hr />
