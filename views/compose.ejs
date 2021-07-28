@@ -1,0 +1,26 @@
+<%- include("header") -%>
+
+<%- include("navbar") -%>
+
+  <div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+      <h1>Compose blog</h1>
+      <form class="" action="/compose" method="post">
+        <div class="form-group">
+          <label for="titlePost">Title</label>
+          <input class="form-control" type="text" name="postTitle" id="titlePost" placeholder="Blog title" autocomplete="off" required>
+          <label for="authorPost">Title</label>
+          <input class="form-control" type="text" name="postAuthor" id="postAuthor" placeholder="Blog author" autocomplete="off" required>
+          <label for="contentPost">Content</label>
+          <textarea class="form-control" name="postContent" id="contentPost" cols="100" rows="5" placeholder="Content" autocomplete="off"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" name="button">Publish</button>
+      </form>
+    </div>
+    <div class="col-3">
+    </div>
+  </div>
+
+<%- include("footer") -%>
