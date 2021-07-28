@@ -64,6 +64,28 @@ body{
   font-size: 13px;
 }
 
+#divCont {
+  padding: 2.5% 2.5%;
+  text-align: center;
+}
+
+#divCont #pCont {
+  text-align: left;
+}
+
+.blog {
+  padding: 5% 2.5%;
+}
+
+.recent-panel {
+  width: 100%;
+}
+
+.recent {
+  font-size: 14px;
+  text-align: center;
+}
+
  nav ul li ul li {
   min-width: 190px;
 }
