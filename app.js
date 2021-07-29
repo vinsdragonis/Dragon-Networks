@@ -24,12 +24,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-  if (posts.length === 0) {
-    posts.push(defaultBlog);
-  }
-  
-  res.render("home", {posts: posts});
-});
+  Post.find({}, function(err, foundPosts){
+    if (!err) {
+      if (foundPosts.length === 0) {
+        Post.insertOne(defaultBlog, function() {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Successfully added default blog!");
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.render("home", {posts: posts});
+      }
+    }
+  });
 
 app.post("/", function(req, res) {
   if (req.body.home === "Compose") {
