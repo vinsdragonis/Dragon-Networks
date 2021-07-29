@@ -10,8 +10,6 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-let posts = [];
-
 const defaultBlog = ({
   postTitle: "Welcome",
   postAuthor: "Dragon Networks",
