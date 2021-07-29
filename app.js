@@ -10,6 +10,15 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+
+let posts = [];
+
+const defaultBlog = {
+  postTitle: "Welcome",
+  postAuthor: "Dragon Networks",
+  postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
+};
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
@@ -46,6 +55,12 @@ app.get("/", function(req, res) {
       }
     }
   });
+  
+  if (posts.length === 0) {
+    posts.push(defaultBlog);
+  }
+  
+  res.render("home", {posts: posts});
 });
 
 app.post("/", function(req, res) {
