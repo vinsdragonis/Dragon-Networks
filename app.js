@@ -38,6 +38,7 @@ app.get("/", function(req, res) {
       }
     }
   });
+});
 
 app.post("/", function(req, res) {
   if (req.body.home === "Compose") {
@@ -62,11 +63,9 @@ app.post("/compose", function(req, res) {
     postContent: req.body.postContent
   });
 
-  post.save(function(err){
-    if (!err){
-        res.redirect("/");
-    }
-  });
+  post.save();
+  
+  res.redirect("/");
 });
 
 app.get("/about", function(req, res) {
