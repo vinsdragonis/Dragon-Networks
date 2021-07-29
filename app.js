@@ -56,11 +56,11 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  const blog = new Post {
+  const blog = new Post ({
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
     postContent: req.body.postContent
-  };
+  });
 
   post.save(function(err){
     if (!err){
