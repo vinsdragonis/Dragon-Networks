@@ -4,7 +4,7 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const _ = require('lodash');
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -18,6 +18,8 @@ const defaultBlog = {
   postAuthor: "Dragon Networks",
   postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
 };
+
+mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
