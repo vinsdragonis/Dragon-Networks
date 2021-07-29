@@ -58,15 +58,17 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  const blog = {
+  const blog = new Post {
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
     postContent: req.body.postContent
   };
 
-  posts.push(blog);
-
-  res.redirect("/");
+  post.save(function(err){
+    if (!err){
+        res.redirect("/");
+    }
+  });
 });
 
 app.get("/about", function(req, res) {
