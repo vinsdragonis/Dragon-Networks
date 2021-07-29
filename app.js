@@ -12,11 +12,11 @@ app.set('view engine', 'ejs');
 
 let posts = [];
 
-const defaultBlog = {
+const defaultBlog = ({
   postTitle: "Welcome",
   postAuthor: "Dragon Networks",
   postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
-};
+});
 
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
