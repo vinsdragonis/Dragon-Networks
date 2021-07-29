@@ -18,7 +18,7 @@ const defaultBlog = {
   postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
 };
 
-mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
