@@ -10,33 +10,28 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-const defaultBlog = ({
-  postTitle: "Welcome",
-  postAuthor: "Dragon Networks",
-  postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
-});
-
 mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+const postSchema = {
+  postTitle: String,
+  postAuthor: String,
+  postContent: String
+};
+
+const Post = mongoose.model("Post", postSchema);
+
+const defaultBlog = new Post ({
+  postTitle: "Welcome",
+  postAuthor: "Dragon Networks",
+  postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
+});
+
 app.get("/", function(req, res) {
-  Post.find({}, function(err, foundPosts){
-    if (!err) {
-      if (foundPosts.length === 0) {
-        Post.insertOne(defaultBlog, function() {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("Successfully added default blog!");
-          }
-          res.redirect("/");
-        });
-      } else {
-        res.render("home", {posts: posts});
-      }
-    }
+  Post.find({}, function(err, posts){
+    res.render("home", {posts: posts});
   });
 });
 
@@ -57,15 +52,17 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  const blog = new Post ({
+  const post = new Post ({
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
     postContent: req.body.postContent
   });
 
-  post.save();
-  
-  res.redirect("/");
+  post.save(function(err){
+    if (!err){
+        res.redirect("/");
+    }
+  });
 });
 
 app.get("/about", function(req, res) {
@@ -76,19 +73,15 @@ app.get("/contact", function(req, res) {
   res.render("contact");
 });
 
-app.get("/posts/:postName/", function(req, res) {
-  const reqTitle = _.lowerCase(req.params.postName);
+app.get("/posts/:postId", function(req, res) {
+  const reqPostId = req.params.postId;
 
-  posts.forEach(function(post) {
-    const storedTitle = _.lowerCase(post.postTitle);
-
-    if (storedTitle === reqTitle) {
-      res.render("post", {
-        title: post.postTitle,
-        author: post.postAuthor,
-        content: post.postContent
-      });
-    }
+  Post.findOne({_id: reqPostId}, function(err, post) {
+    res.render("post", {
+      title: post.postTitle,
+      author: post.postAuthor,
+      content: post.postContent
+    });
   });
 });
 
