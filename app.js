@@ -4,18 +4,48 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 
-let posts = [];
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
+
+const postSchema = {
+  title: String,
+  author: String,
+  content: String
+};
+
+const Post = mongoose.model("Post", postSchema);
+
+const defaultBlog = new Post ({
+  postTitle: "Welcome",
+  postAuthor: "Dragon Networks",
+  postContent: "Hey there! Click on the compose button above to write a blog, or checkout some of the recent blogs written by other people."
+});
+
 app.get("/", function(req, res) {
-  res.render("home", {posts: posts});
+  Post.find({}, function(err, foundPosts){
+    if (!err) {
+      if (foundPosts.length === 0) {
+        Post.insertOne(defaultBlog, function() {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Successfully added default blog!");
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.render("home", {posts: posts});
+      }
+    }
+  });
 });
 
 app.post("/", function(req, res) {
@@ -35,15 +65,17 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  const blog = {
+  const blog = new Post {
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
     postContent: req.body.postContent
   };
 
-  posts.push(blog);
-
-  res.redirect("/");
+  post.save(function(err){
+    if (!err){
+        res.redirect("/");
+    }
+  });
 });
 
 app.get("/about", function(req, res) {
