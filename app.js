@@ -30,9 +30,28 @@ const defaultBlog = new Post ({
 });
 
 app.get("/", function(req, res) {
-  Post.find({}, function(err, posts){
-    res.render("home", {posts: posts});
+  Post.find({}, function(err, foundPosts){
+    if (!err) {
+      if (foundPosts.length === 0) {
+        Post.insertOne(defaultBlog, function() {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Successfully added default blog!");
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.render("home", {posts: posts});
+      }
+    }
   });
+  
+  if (posts.length === 0) {
+    posts.push(defaultBlog);
+  }
+  
+  res.render("home", {posts: posts});
 });
 
 app.post("/", function(req, res) {
