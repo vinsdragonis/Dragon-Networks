@@ -16,9 +16,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 const postSchema = {
-  title: String,
-  author: String,
-  content: String
+  postTitle: String,
+  postAuthor: String,
+  postContent: String
 };
 
 const Post = mongoose.model("Post", postSchema);
@@ -71,11 +71,11 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  const blog = new Post {
+  const post = new Post ({
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
     postContent: req.body.postContent
-  };
+  });
 
   post.save(function(err){
     if (!err){
@@ -92,19 +92,15 @@ app.get("/contact", function(req, res) {
   res.render("contact");
 });
 
-app.get("/posts/:postName/", function(req, res) {
-  const reqTitle = _.lowerCase(req.params.postName);
+app.get("/posts/:postId", function(req, res) {
+  const reqPostId = req.params.postId;
 
-  posts.forEach(function(post) {
-    const storedTitle = _.lowerCase(post.postTitle);
-
-    if (storedTitle === reqTitle) {
-      res.render("post", {
-        title: post.postTitle,
-        author: post.postAuthor,
-        content: post.postContent
-      });
-    }
+  Post.findOne({_id: reqPostId}, function(err, post) {
+    res.render("post", {
+      title: post.postTitle,
+      author: post.postAuthor,
+      content: post.postContent
+    });
   });
 });
 
