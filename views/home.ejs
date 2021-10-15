@@ -26,7 +26,7 @@
           <div class="jumbotron">
             <h4>Recent</h4>
             <% posts.slice(-5).reverse().forEach(function(post) { %>
-              <a class="recent" target="_blank" href="/posts/<%= post.postTitle %>"><%= post.postTitle %></a><br />
+              <a class="recent" target="_blank" href="/posts/<%= post._id %>"><%= post.postTitle %></a><br />
             <% }); %>
           </div>
         </div>
