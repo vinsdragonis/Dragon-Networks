@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(__dirname+'/public'));
 
+
 app.use('/auth',require('./routers/users'));
 app.use('/',require('./routers/home'));
 app.use('/compose',require('./routers/compose'));
