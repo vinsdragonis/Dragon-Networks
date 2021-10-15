@@ -3,7 +3,10 @@ const jwt = require('jsonwebtoken');
 
 const postSchema = new mongoose.Schema({
     postTitle: String,
-    postAuthor: String,
+    postAuthor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user"
+    },
     postContent: String
 });
 
