@@ -3,12 +3,31 @@ body{
   padding: 0;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
+  background: #252525;
 }
- .navigation {
+.jumbotron:nth-of-type(1) {
+  background: #151515;
+  color: #ffffff;
+}
+.cont, .cont-heading {
+  color: #ffffff;
+  padding-top: 20px;
+}
+
+.section-cont {
+  padding-top: 10px;
+}
+
+form input[type="text"], input[type="email"], input[type="password"], #contentPost {
+  background-color: #323232;
+  color: #ffffff;
+}
+.navigation {
+  top: 0;
   height: 55px;
   background: linear-gradient(45deg, #4199fe, #74b4fe);
 }
- .brand {
+.brand {
   position: absolute;
   padding-left: 20px;
   float: left;
@@ -16,15 +35,15 @@ body{
   text-transform: uppercase;
   font-size: 1.4em;
 }
- .brand a, .brand a:visited {
+.brand a, .brand a:visited {
   color: #ffffff;
   text-decoration: none;
 }
- .nav-container {
+.nav-container {
   max-width: 1000px;
   margin: 0 auto;
 }
- nav {
+nav {
   float: right;
 }
  nav ul {
@@ -186,4 +205,3 @@ body{
  #navbar-toggle.active span:after {
   transform: rotate(-45deg);
 }
- 
