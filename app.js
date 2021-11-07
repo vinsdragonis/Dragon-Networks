@@ -47,12 +47,6 @@ app.get("/", function(req, res) {
       }
     }
   });
-  
-  // if (foundPosts.length === 0) {
-  //   foundPosts.push(defaultBlog);
-  // }
-  
-  // res.render("home", {posts: foundPosts});
 });
 
 app.post("/", function(req, res) {
