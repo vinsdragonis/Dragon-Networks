@@ -5,6 +5,7 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const _ = require('lodash');
 const mongoose = require("mongoose");
+const nl2br = require("nl2br");
 
 const app = express();
 
@@ -30,7 +31,7 @@ const defaultBlog = new Post ({
 });
 
 app.get("/", function(req, res) {
-  Post.find({}, function(err, foundPosts){
+  Post.find({}, function(err, foundPosts) {
     if (!err) {
       if (foundPosts.length === 0) {
         Post.insertOne(defaultBlog, function() {
@@ -42,16 +43,16 @@ app.get("/", function(req, res) {
           res.redirect("/");
         });
       } else {
-        res.render("home", {posts: posts});
+        res.render("home", {posts: foundPosts});
       }
     }
   });
   
-  if (posts.length === 0) {
-    posts.push(defaultBlog);
-  }
+  // if (foundPosts.length === 0) {
+  //   foundPosts.push(defaultBlog);
+  // }
   
-  res.render("home", {posts: posts});
+  // res.render("home", {posts: foundPosts});
 });
 
 app.post("/", function(req, res) {
@@ -74,12 +75,12 @@ app.post("/compose", function(req, res) {
   const post = new Post ({
     postTitle: req.body.postTitle,
     postAuthor: req.body.postAuthor,
-    postContent: req.body.postContent
+    postContent: nl2br(req.body.postContent)
   });
 
   post.save(function(err){
     if (!err){
-        res.redirect("/");
+      res.redirect("/");
     }
   });
 });
