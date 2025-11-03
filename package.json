@@ -9,7 +9,7 @@
   "author": "B V Vineeth",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
